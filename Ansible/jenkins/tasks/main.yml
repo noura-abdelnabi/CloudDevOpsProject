@@ -1,0 +1,42 @@
+---
+- name: Create Jenkins Volume
+  docker_volume:
+    name: jenkins_home
+    state: present
+
+- name: Create Jenkins init directory
+  file:
+    path: "/var/lib/docker/volumes/jenkins_home/_data/init.groovy.d"
+    state: directory
+    mode: '0755'
+
+- name: Skip Jenkins Setup Wizard & Create Admin User
+  copy:
+    dest: "/var/lib/docker/volumes/jenkins_home/_data/init.groovy.d/basic-security.groovy"
+    content: |
+      import jenkins.model.*
+      import hudson.security.*
+      import jenkins.install.*
+      def instance = Jenkins.getInstance()
+      def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+      hudsonRealm.createAccount("noura", "noura") 
+      instance.setSecurityRealm(hudsonRealm)
+      def strategy = new FullControlOnceLoggedInAuthorizationStrategy()
+      instance.setAuthorizationStrategy(strategy)
+      instance.setInstallState(InstallState.UNKNOWN)
+      instance.save()
+    mode: '0644'
+
+- name: Run Jenkins Container
+  docker_container:
+    name: jenkins
+    image: jenkins/jenkins:lts
+    state: started
+    recreate: yes  
+    restart_policy: always
+    published_ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+

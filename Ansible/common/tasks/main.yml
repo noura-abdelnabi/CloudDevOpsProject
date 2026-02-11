@@ -1,0 +1,14 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install Java for Jenkins
+  apt:
+    name: openjdk-17-jdk
+    state: present
+
+- name: Install Git
+  apt: 
+    name: git
+    state: present

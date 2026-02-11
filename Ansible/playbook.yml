@@ -1,0 +1,9 @@
+---
+- name: Setup Jenkins and Kubernetes Server
+  hosts: all
+  become: yes
+  roles:
+    - common
+    - docker
+    - jenkins
+    - kubernetes
