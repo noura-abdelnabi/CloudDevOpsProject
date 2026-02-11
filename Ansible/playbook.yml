@@ -3,7 +3,8 @@
   hosts: all
   become: yes
   roles:
-    - common
-    - docker
-    - jenkins
-    - kubernetes
+    #  - common
+    # - docker
+    # - jenkins
+    # - kubernetes
+    - k8s_deploy

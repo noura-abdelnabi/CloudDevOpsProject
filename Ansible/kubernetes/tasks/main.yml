@@ -13,4 +13,4 @@
 
 - name: Start Minikube (using Docker driver)
   become: no
-  shell: minikube start --driver=docker
+  shell: minikube start --driver=docker --memory=2048 --force

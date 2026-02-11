@@ -1,0 +1,29 @@
+---
+- name: Install k8s dependencies on the server
+  become: yes
+  apt:
+    name:
+      - python3-kubernetes
+      - python3-yaml
+      - python3-jsonpatch
+    state: present
+    update_cache: yes
+
+- name: Apply Namespace
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', 'namespace.yml') }}"
+    kubeconfig: "/home/ubuntu/.kube/config"
+
+- name: Apply Deployment
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', 'deployment.yml') }}"
+    kubeconfig: "/home/ubuntu/.kube/config"
+
+- name: Apply Service
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', 'service.yml') }}"
+    kubeconfig: "/home/ubuntu/.kube/config"
+
