@@ -31,7 +31,7 @@ resource "aws_instance" "jenkins_server" {
   instance_type = var.instance_type 
   subnet_id     = var.subnet_id
   vpc_security_group_ids = [aws_security_group.jenkins_sg.id]
-
+  key_name      = "vockey"
   tags = { Name = "Jenkins-Server" }
 }
 
