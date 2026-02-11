@@ -31,6 +31,11 @@ resource "aws_instance" "jenkins_server" {
   instance_type = var.instance_type 
   subnet_id     = var.subnet_id
   vpc_security_group_ids = [aws_security_group.jenkins_sg.id]
+  root_block_device {
+    volume_size = 20        # المساحة الجديدة بالجيجا
+    volume_type = "gp3"     # النوع الأسرع والأوفر
+    delete_on_termination = true
+  }  
   key_name      = "vockey"
   tags = { Name = "Jenkins-Server" }
 }
