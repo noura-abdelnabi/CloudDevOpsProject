@@ -8,13 +8,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                script { dockerUtils.build("nouraabelnabi/FinalProject:${env.BUILD_ID}") }
+                script { dockerUtils.build("nouraabelnabi/finalproject:${env.BUILD_ID}") }
             }
         }
         stage('Deploy') {
             steps {
                 script { 
-                    gitUtils.updateManifest('Ansible/k8s_deploy/files/deployment.yml', "nouraabdelnabi/FinalProject:${env.BUILD_ID}")
+                    gitUtils.updateManifest('Ansible/k8s_deploy/files/deployment.yml', "nouraabdelnabi/finalproject:${env.BUILD_ID}")
                     gitUtils.pushChanges('githubcred')
                 }
             }
