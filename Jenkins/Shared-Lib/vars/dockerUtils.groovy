@@ -6,8 +6,8 @@ def scan(imageName) {
     sh "trivy image --severity HIGH,CRITICAL ${imageName} || echo 'Scan failed but continuing...'"
 }
 
-def push(imageName, credsId) {
-    withCredentials([usernamePassword(credentialsId: credsId, passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+def push(imageName, docker-hub-creds) {
+    withCredentials([usernamePassword(credentialsId: docker-hub-creds, passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         sh "echo \$PASS | docker login -u \$USER --password-stdin"
         sh "docker push ${imageName}"
     }
