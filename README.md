@@ -5,6 +5,8 @@
 ## 📋 Architecture Overview
 
 The project automates the entire lifecycle of an application, starting from infrastructure provisioning on AWS to continuous deployment on Kubernetes using GitOps principles.
+![ARCHITECTURE](https://github.com/user-attachments/assets/ac720dc3-be10-440e-bbba-cde7c7b1d14e)
+
 
 ---
 
