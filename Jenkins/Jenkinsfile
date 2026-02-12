@@ -2,6 +2,9 @@
 
 pipeline {
     agent any
+    tools {
+        dockerTool 'default' 
+    }
     stages {
         stage('Build') {
             steps {
