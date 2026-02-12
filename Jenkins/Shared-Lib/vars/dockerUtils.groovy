@@ -1,5 +1,5 @@
 def build(imageName) {
-    sh "docker build -t ${imageName} ."
+    sh "docker build -t ${imageName} ./Docker"
 }
 
 def scan(imageName) {
