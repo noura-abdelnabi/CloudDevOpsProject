@@ -8,3 +8,4 @@
      - jenkins
      - kubernetes
      - k8s_deploy
+     - argocd
