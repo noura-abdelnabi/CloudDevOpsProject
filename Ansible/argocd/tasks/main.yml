@@ -1,0 +1,26 @@
+---
+- name: Create argocd namespace
+  kubernetes.core.k8s:
+    name: argocd
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Install ArgoCD using manifest
+  kubernetes.core.k8s:
+    state: present
+    src: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    namespace: argocd
+
+- name: Patch ArgoCD server service to NodePort
+  kubernetes.core.k8s:
+    state: patched
+    kind: Service
+    name: argocd-server
+    namespace: argocd
+    definition:
+      spec:
+        type: NodePort
+        ports:
+          - port: 443
+            nodePort: 30001  
