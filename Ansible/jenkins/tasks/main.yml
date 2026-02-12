@@ -4,6 +4,14 @@
     name: jenkins_home
     state: present
 
+- name: Jenkins Home Permision
+  become: yes
+  file:
+    path: "/var/lib/docker/volumes/jenkins_home/_data"
+    owner: "1000"
+    group: "1000"
+    recurse: yes
+
 - name: Create Jenkins init directory
   file:
     path: "/var/lib/docker/volumes/jenkins_home/_data/init.groovy.d"

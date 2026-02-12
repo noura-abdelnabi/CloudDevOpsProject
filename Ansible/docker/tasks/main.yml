@@ -11,7 +11,11 @@
     enabled: yes
 
 - name: Add Ubuntu user to docker group
+  become: yes
   user: 
     name: ubuntu 
     groups: docker
     append: yes
+
+- name: Reset connection to apply group changes
+  meta: reset_connection
