@@ -9,7 +9,7 @@ def pushChanges(githubcred) {
             git config user.name "Jenkins Pipeline"
             git add .
             git commit -m 'Release: Update image tag [skip ci]'
-            git push origin main
+            git push origin HEAD:main
         """
     }
 }
