@@ -11,7 +11,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script { 
-                    gitUtils.updateManifest('k8s/deploy.yml', "noura-abdelnabi/FinalProject:${env.BUILD_ID}")
+                    gitUtils.updateManifest('Ansible/k8s_deploy/files/deployment.yml', "nouraabdelnabi/FinalProject:${env.BUILD_ID}")
                     gitUtils.pushChanges('github-creds')
                 }
             }
