@@ -5,10 +5,19 @@ pipeline {
     tools {
         dockerTool 'default' 
     }
-    stages {
-        stage('Build') {
+    stage('Build & Push') {
             steps {
-                script { dockerUtils.build("nouraabelnabi/finalproject:${env.BUILD_ID}") }
+                script { 
+                    def FULL_IMAGE = "nouraabelnabi/finalproject:${env.BUILD_ID}"
+                    
+                    dockerUtils.build(FULL_IMAGE)
+                    
+                    dockerUtils.scan(FULL_IMAGE)
+                    
+                    dockerUtils.push(FULL_IMAGE, 'dockerhubcred')
+                    
+                    dockerUtils.clean(FULL_IMAGE)
+                }
             }
         }
         stage('Deploy') {
