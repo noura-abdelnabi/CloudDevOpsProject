@@ -9,7 +9,7 @@ pipeline {
         stage('Build & Push') {
                 steps {
                     script { 
-                        def FULL_IMAGE = "nouraabelnabi/finalproject:${env.BUILD_ID}"
+                        def FULL_IMAGE = "nouraabdelnabi/finalproject:${env.BUILD_ID}"
                         
                         dockerUtils.build(FULL_IMAGE)
                         
