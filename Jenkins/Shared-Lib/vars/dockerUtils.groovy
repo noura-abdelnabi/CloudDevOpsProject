@@ -3,7 +3,7 @@ def build(imageName) {
 }
 
 def scan(imageName) {
-    sh "trivy image --severity HIGH,CRITICAL ${imageName} || echo 'Scan failed but continuing...'"
+    sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ${imageName}"
 }
 
 def push(imageName, dockerhubcred) {
