@@ -2,8 +2,8 @@ def updateManifest(filePath, imageName) {
     sh "sed -i 's|image:.*|image: ${imageName}|g' ${filePath}"
 }
 
-def pushChanges(credsId) {
-    withCredentials([gitUsernamePassword(credentialsId: credsId)]) {
+def pushChanges(github-creds) {
+    withCredentials([gitUsernamePassword(credentialsId: github-creds)]) {
         sh """
             git config user.email "jenkins@ivolve.com"
             git config user.name "Jenkins Pipeline"
