@@ -11,7 +11,8 @@
     state: present
     src: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
     namespace: argocd
-
+    validate_with_connector: false
+    
 - name: Patch ArgoCD server service to NodePort
   kubernetes.core.k8s:
     state: patched
