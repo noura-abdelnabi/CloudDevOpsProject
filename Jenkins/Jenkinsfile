@@ -5,27 +5,29 @@ pipeline {
     tools {
         dockerTool 'default' 
     }
-    stage('Build & Push') {
-            steps {
-                script { 
-                    def FULL_IMAGE = "nouraabelnabi/finalproject:${env.BUILD_ID}"
-                    
-                    dockerUtils.build(FULL_IMAGE)
-                    
-                    dockerUtils.scan(FULL_IMAGE)
-                    
-                    dockerUtils.push(FULL_IMAGE, 'dockerhubcred')
-                    
-                    dockerUtils.clean(FULL_IMAGE)
+    stages {
+        stage('Build & Push') {
+                steps {
+                    script { 
+                        def FULL_IMAGE = "nouraabelnabi/finalproject:${env.BUILD_ID}"
+                        
+                        dockerUtils.build(FULL_IMAGE)
+                        
+                        dockerUtils.scan(FULL_IMAGE)
+                        
+                        dockerUtils.push(FULL_IMAGE, 'dockerhubcred')
+                        
+                        dockerUtils.clean(FULL_IMAGE)
+                    }
                 }
             }
-        }
-        stage('Deploy') {
-            steps {
-                script { 
-                    gitUtils.updateManifest('Ansible/k8s_deploy/files/deployment.yml', "nouraabdelnabi/finalproject:${env.BUILD_ID}")
-                    gitUtils.pushChanges('githubcred')
+            stage('Deploy') {
+                steps {
+                    script { 
+                        gitUtils.updateManifest('Ansible/k8s_deploy/files/deployment.yml', "nouraabdelnabi/finalproject:${env.BUILD_ID}")
+                        gitUtils.pushChanges('githubcred')
+                    }
                 }
             }
-        }
     }
+}
